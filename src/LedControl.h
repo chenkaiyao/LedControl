@@ -22,8 +22,8 @@ class LedControl
 {
     public:
         //Constructor
-        LedControl(uint8_t ledPin);
-        LedControl(uint8_t redPin, uint8_t greenPin, uint8_t bluePin);
+        LedControl(uint8_t ledPin, uint8_t invert, uint8_t pwm);
+        LedControl(uint8_t redPin, uint8_t greenPin, uint8_t bluePin, uint8_t invert, uint8_t pwm);
 
         void ledColor(uint8_t led);
         void ledBlink(uint8_t led, uint16_t period);
@@ -51,6 +51,8 @@ class LedControl
         uint8_t _redPin;     // red pin num
         uint8_t _greenPin;   // green pin num
         uint8_t _bluePin;    // blue pin num
+        uint8_t _invert;
+        uint8_t _pwm;
         rgb_info_t _rgb_info;
         system_tick_t _startTime;
 };

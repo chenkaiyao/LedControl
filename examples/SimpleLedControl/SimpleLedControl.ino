@@ -4,7 +4,13 @@
 
 #include "LedControl.h"
 
-LedControl ledControl(A0);
+LedControl ledControl(D1, false, false);
+
+static void SystemTickHandle(void)
+{
+    //该函数处理时间尽量短, 不允许阻塞
+    ledControl.loop();
+}
 
 // setup code here, to run once:
 void setup()
@@ -15,7 +21,8 @@ void setup()
     }
     Serial.println("Starting Rgb Blink...");
 
-    ledControl.ledBlink(0xFF, 500);
+    System.onSysTick(SystemTickHandle);
+    ledControl.ledBlink(0xff, 500);
 }
 
 // main code here, to run repeatedly:

@@ -13,47 +13,101 @@
 #define LED_UNUSED_PIN   0xFF
 
 // ----- Initialization and Default Values -----
-LedControl::LedControl(uint8_t ledPin)
+LedControl::LedControl(uint8_t ledPin, uint8_t invert, uint8_t pwm)
 {
+    uint8_t brightness = 0;
+
     _redPin = ledPin;
     _greenPin = LED_UNUSED_PIN;
     _bluePin = LED_UNUSED_PIN;
-    pinMode(ledPin, OUTPUT);
+    _invert = invert;
+    _pwm = pwm;
+    pinMode(_redPin, OUTPUT);
+
+    if(!_invert) {
+        brightness = 0;
+    } else {
+        brightness = 0xff;
+    }
+    if(_pwm) {
+        analogWrite(_redPin, brightness);
+    } else {
+        digitalWrite(_redPin, brightness);
+    }
 }
 
-LedControl::LedControl(uint8_t redPin, uint8_t greenPin, uint8_t bluePin)
+LedControl::LedControl(uint8_t redPin, uint8_t greenPin, uint8_t bluePin, uint8_t invert, uint8_t pwm)
 {
+    uint8_t brightness = 0;
+
     _redPin = redPin;      // set red pin
     _greenPin = greenPin;  // set green pin
     _bluePin = bluePin;    // set blue pin
+    _invert = invert;
+    _pwm = pwm;
     pinMode(_redPin, OUTPUT);
     pinMode(_greenPin, OUTPUT);
     pinMode(_bluePin, OUTPUT);
+
+    if(!_invert) {
+        brightness = 0;
+    } else {
+        brightness = 0xff;
+    }
+    if(_pwm) {
+        analogWrite(_redPin, brightness);
+        analogWrite(_greenPin, brightness);
+        analogWrite(_bluePin, brightness);
+    } else {
+        digitalWrite(_redPin, brightness);
+        digitalWrite(_greenPin, brightness);
+        digitalWrite(_bluePin, brightness);
+    }
 }
 
 void LedControl::rgbControl(uint32_t color)
 {
+    uint8_t brightness = 0;
+
     if(LED_UNUSED_PIN != _redPin ) {
-        if((color >> 16) & 0xFF) {
-            digitalWrite(_redPin, HIGH);
+        if(!_invert) {
+            brightness = (color >> 16) & 0xFF;
         } else {
-            digitalWrite(_redPin, LOW);
+            brightness = 0xff - (color >> 16) & 0xFF;
+        }
+
+        if(_pwm) {
+            analogWrite(_redPin, brightness);
+        } else {
+            digitalWrite(_redPin, brightness);
         }
     }
 
     if(LED_UNUSED_PIN != _greenPin ) {
-        if((color >> 8) & 0xFF) {
-            digitalWrite(_greenPin, HIGH);
+        if(!_invert) {
+            brightness = (color >> 8) & 0xFF;
         } else {
-            digitalWrite(_greenPin, LOW);
+            brightness = 0xff - (color >> 8) & 0xFF;
+        }
+
+        if(_pwm) {
+            analogWrite(_greenPin, brightness);
+        } else {
+            digitalWrite(_greenPin, brightness);
         }
     }
 
     if(LED_UNUSED_PIN != _bluePin ) {
-        if(color & 0xFF) {
-            digitalWrite(_bluePin, HIGH);
+        if(!_invert) {
+            brightness = color & 0xFF;
         } else {
-            digitalWrite(_bluePin, LOW);
+            brightness = 0xff - color & 0xFF;
+        }
+
+        if(_pwm) {
+            analogWrite(_bluePin, brightness);
+        } else {
+            digitalWrite(_bluePin, brightness);
         }
     }
 }
