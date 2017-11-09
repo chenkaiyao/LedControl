@@ -2,7 +2,7 @@
     "name": "LedControl",
     "version": "1.0.0",
     "keywords": "arduino, ledcontrol",
-    "description": "This Arduino libary is improving the usage of led control",
+    "description": "该库可实现设备的指示灯控制，支持单个LED灯和RGB灯控制。支持亮度的控制",
     "repository":
     {
         "type": "git",
