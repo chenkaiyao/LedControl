@@ -1,0 +1,13 @@
+{
+    "name": "LedControl",
+    "version": "1.0.0",
+    "keywords": "arduino, ledcontrol",
+    "description": "This Arduino libary is improving the usage of led control",
+    "repository":
+    {
+        "type": "git",
+        "url": "https://github.com/chenkaiyao/LedControl"
+    },
+    "frameworks": "arduino",
+    "platforms": "*"
+}
