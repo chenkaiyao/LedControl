@@ -6,12 +6,6 @@
 
 LedControl ledControl(D1, false, false);
 
-static void SystemTickHandle(void)
-{
-    //该函数处理时间尽量短, 不允许阻塞
-    ledControl.loop();
-}
-
 // setup code here, to run once:
 void setup()
 {
@@ -19,9 +13,8 @@ void setup()
     while (!Serial) {
         ; // wait for serial port to connect. Needed for Leonardo only
     }
-    Serial.println("Starting Rgb Blink...");
+    Serial.println("Starting led Blink...");
 
-    System.onSysTick(SystemTickHandle);
     ledControl.ledBlink(0xff, 500);
 }
 
