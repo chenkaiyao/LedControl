@@ -12,17 +12,17 @@
 # Methods and Functions (KEYWORD2)
 #######################################
 
-ledColor    KEYWORD2
-ledBlink    KEYWORD2
-rgbColor    KEYWORD2
-rgbBlink    KEYWORD2
-loop        KEYWORD2
+ledColor	KEYWORD2
+ledBlink	KEYWORD2
+rgbColor	KEYWORD2
+rgbBlink	KEYWORD2
+loop	KEYWORD2
 
 #######################################
 # Instances (KEYWORD2)
 #######################################
 
-LedControl  KEYWORD2
+LedControl	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
